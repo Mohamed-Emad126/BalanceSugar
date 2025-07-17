@@ -1,0 +1,3 @@
+Backend/footcare/model/ulcer_segmentation_model.h5
+Backend/footcare/model/Diabetic_Foot_Ulcer4.h5
+Backend/medication/models/DDI_rf_model.pkl
