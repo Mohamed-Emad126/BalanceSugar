@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatbot</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        .chat-container { width: 50%; margin: auto; padding: 20px; border: 1px solid #ccc; border-radius: 5px; }
+        .chat-box { height: 400px; overflow-y: scroll; border: 1px solid #ddd; padding: 10px; margin-bottom: 10px; }
+        .input-box { display: flex; }
+        .input-box input { flex: 1; padding: 10px; border: 1px solid #ccc; border-radius: 5px; }
+        .input-box button { padding: 10px; background-color: blue; color: white; border: none; cursor: pointer; }
+        .message { margin: 5px 0; padding: 8px; border-radius: 5px; }
+        .user { background-color: #f0f0f0; text-align: right; }
+        .ai { background-color: #e0ffe0; }
+    </style>
+</head>
+<body>
+    <div class="chat-container">
+        <h2>Diabetes Chatbot</h2>
+        <div class="chat-box" id="chat-box"></div>
+        <div class="input-box">
+            <input type="text" id="user-input" placeholder="Type your message...">
+            <button onclick="sendMessage()">Send</button>
+        </div>
+        <button onclick="clearConversation()" style="margin-top:10px;">Clear Conversation</button>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            loadChatHistory();
+        });
+
+        function loadChatHistory() {
+            $.get("/conversation/detail/", function(data) {
+                data.messages.forEach(msg => {
+                    appendMessage("user", msg.input);
+                    appendMessage("ai", msg.response);
+                });
+            });
+        }
+
+        function appendMessage(sender, text) {
+            let messageDiv = `<div class='message ${sender}'>${text}</div>`;
+            $("#chat-box").append(messageDiv);
+            $("#chat-box").scrollTop($("#chat-box")[0].scrollHeight);
+        }
+
+        function sendMessage() {
+            let inputText = $("#user-input").val().trim();
+            if (inputText === "") return;
+            appendMessage("user", inputText);
+            $("#user-input").val("");
+            
+            $.ajax({
+                url: "/chatbot/",
+                type: "POST",
+                contentType: "application/json",
+                data: JSON.stringify({ input_text: inputText }),
+                success: function(response) {
+                    appendMessage("ai", response.response );
+                },
+                error: function() {
+                    appendMessage("ai", "Error processing your request.");
+                }
+            });
+        }
+
+        function clearConversation() {
+            $.get("/conversation/delete/", function() {
+                $("#chat-box").html("");
+            });
+        }
+    </script>
+</body>
+</html>

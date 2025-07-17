@@ -1,0 +1,12 @@
+
+{% block content %}
+  <h1>Are you sure you want to delete this medication?</h1>
+  <p>{{ medication.medication_name }} - {{ medication.route_of_administration }}</p>
+  
+  <form method="post">
+    {% csrf_token %}
+    <button type="submit">Yes, delete</button>
+  </form>
+  
+  <a href="{% url 'medication:medication_list' %}">Cancel</a>
+{% endblock %}

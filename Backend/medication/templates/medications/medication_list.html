@@ -1,0 +1,13 @@
+
+{% block content %}
+  <h1>My Medications</h1>
+  <a href="{% url 'medication:medication_create' %}">Add New Medication</a>
+  <ul>
+    {% for medication in medications %}
+      <li>
+        <a href="{% url 'medication:medication_detail' medication.id %}">{{ medication.medication_name }}</a>
+        - {{ medication.first_time_of_intake }}
+      </li>
+    {% endfor %}
+  </ul>
+{% endblock %}

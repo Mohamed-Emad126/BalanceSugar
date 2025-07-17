@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Foot Ulcer Detection</title>
+</head>
+<body>
+
+    <!-- Original Image -->
+    <h2>Original Image</h2>
+    {% if foot_ulcer.image %}
+        <img src="{{ foot_ulcer.image.url }}" alt="Original Image" />
+    {% else %}
+        <p>No original image uploaded.</p>
+    {% endif %}
+
+    <!-- Segmented Image -->
+    <h2>Segmented Image</h2>
+    {% if segmented_image_url %}
+        <img src="{{ segmented_image_url }}" alt="Segmented Image" />
+    {% else %}
+        <p>No segmented image available.</p>
+    {% endif %}
+
+    <h3>Classification Result: {{ classification_label }}</h3>
+    <p>Confidence: {{ confidence }}</p>
+
+    <p>Ulcer Area: {{ ulcer_area }} mm²</p>
+
+    <!-- Last Area -->
+    {% if last_area %}
+        <p>Last Area: {{ last_area }} mm²</p>
+    {% else %}
+        <p>No previous ulcer area available.</p>
+    {% endif %}
+
+    <!-- Area Difference -->
+    {% if area_difference %}
+        <p>Area Difference: {{ area_difference }} mm²</p>
+    {% else %}
+        <p>No area difference available.</p>
+    {% endif %}
+
+    <!-- Improvement Message -->
+    {% if improvement_message %}
+        <p>Improvement Message: {{ improvement_message }}</p>
+    {% else %}
+        <p>No improvement message available.</p>
+    {% endif %}
+
+</body>
+</html>
+
+

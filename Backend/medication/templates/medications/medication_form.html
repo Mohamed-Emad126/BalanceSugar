@@ -1,0 +1,13 @@
+
+{% block content %}
+  <h1>{% if form.instance.medication_name %}Update Medication{% else %}Create Medication{% endif %}</h1>
+  
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Save</button>
+  </form>
+  
+  <a href="{% url 'medication:medication_list' %}">Cancel</a>
+{% endblock %}
+

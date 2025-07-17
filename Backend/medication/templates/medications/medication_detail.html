@@ -1,0 +1,31 @@
+{% block content %}
+  <h1>{{ medication.medication_name }}</h1>
+  
+  <p><strong>Route:</strong> {{ medication.route_of_administration }}</p>
+  <p><strong>Dosage:</strong> {{ medication.dosage_quantity_of_units_per_time }} {{ medication.dosage_unit_of_measure }}</p>
+  <p><strong>Dosage Form:</strong> {{ medication.dosage_form }}</p>
+  <p><strong>Frequency:</strong> {{ medication.dosage_frequency }} times per {{ medication.get_periodic_interval_display }}</p>
+  <p><strong>First Intake:</strong> {{ medication.first_time_of_intake|date:"Y-m-d H:i" }}</p>
+  <p><strong>interaction_warning:</strong> {{ medication.interaction_warning }}</p>
+  <p><strong>Status:</strong> 
+
+    {% if medication.is_active %}
+      Active
+    {% else %}
+      Inactive
+    {% endif %}
+  </p>
+
+  <!-- Display interaction warning if it exists -->
+  {% if medication.interaction_warning %}
+    <div class="alert alert-warning">
+      <strong>Interaction Warning:</strong> {{ medication.interaction_warning }}
+    </div>
+  {% endif %}
+
+  <!-- Links to edit or delete medication -->
+  <a href="{% url 'medication:medication_edit' medication.id %}" class="btn btn-warning">Edit</a>
+  <a href="{% url 'medication:medication_delete' medication.id %}" class="btn btn-danger">Delete</a>
+  <a href="{% url 'medication:medication_list' %}" class="btn btn-primary">Back to List</a>
+{% endblock %}
+

@@ -1,0 +1,11 @@
+<h2>All Foot Ulcers</h2>
+<ul>
+    {% for foot_ulcer in foot_ulcers %}
+        <li>
+            <a href="{% url 'footcare:get_foot_ulcer' foot_ulcer.id %}">{{ foot_ulcer.classification_result }} - {{ foot_ulcer.uploaded_at }}</a>
+        </li>
+    {% empty %}
+        <p>No foot ulcers found.</p>
+    {% endfor %}
+</ul>
+

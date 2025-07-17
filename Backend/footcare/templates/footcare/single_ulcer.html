@@ -1,0 +1,11 @@
+<h3>Foot Ulcer Details</h3>
+<p>Classification: {{ foot_ulcer.classification_result }}</p>
+<p>Confidence: {{ foot_ulcer.confidence }}</p>
+<p>Ulcer Area: {{ foot_ulcer.ulcer_area }} mm²</p>
+{% if foot_ulcer.segmented_image %}
+    <img src="{{ foot_ulcer.segmented_image.url }}" alt="Segmented Image">
+{% else %}
+    <p>No segmented image available.</p>
+{% endif %}
+<p>Uploaded At: {{ foot_ulcer.uploaded_at }}</p>
+

@@ -1,0 +1,22 @@
+{% extends 'base_generic.html' %}
+
+{% block content %}
+    <div class="container mt-5">
+        <h3>Create Medication Reminder</h3>
+
+        <form method="POST">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="medicine_name">Medicine Name:</label>
+                <input type="text" name="medicine_name" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="dosage_quantity_of_units_per_time">Dosage (Units per Time):</label>
+                <input type="number" name="dosage_quantity_of_units_per_time" class="form-control" required>
+            </div>
+            <!-- Add other fields as necessary -->
+            <button type="submit" class="btn btn-primary">Create Medication Reminder</button>
+        </form>
+    </div>
+{% endblock %}
+
